@@ -15,6 +15,7 @@ public class BoardController {
 	@GetMapping("/board/list")
 	public String list(Model model) {
 		model.addAttribute("list", boardDAO.findAll());
+		
 		return "/board/list";
 	}
 }
