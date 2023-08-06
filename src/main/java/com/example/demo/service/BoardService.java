@@ -21,14 +21,6 @@ public class BoardService {
 		return boardDAO.findAll();
 	}
 	
-	public void insert(int board_no, String title, String content, String writer) {
-		boardDAO.insert(board_no, title, content, writer);
-	}
-	
-	public int getNextNo() {
-		return boardDAO.getNextNo();
-	}
-	
 	public void save(Board board) {
 		boardDAO.save(board);
 	}

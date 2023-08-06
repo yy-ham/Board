@@ -35,15 +35,6 @@ public class BoardController {
 	@PostMapping("/board/insert")
 	public ModelAndView save(Board board) {
 		ModelAndView mav = new ModelAndView("redirect:/board/list");
-//		System.out.println(board.getTitle());
-//		System.out.println(board.getContent());
-//		System.out.println(board.getWriter());
-//		System.out.println("??");
-//		int next_no = boardService.getNextNo() + 1;
-//		System.out.println("next_no:" + next_no);
-//		boardService.insert(next_no, board.getTitle(), board.getContent(), board.getWriter());
-//		System.out.println("?");
-		board.setBoard_no(boardService.getNextNo() + 1);
 		boardService.save(board);
 		return mav;
 	}
