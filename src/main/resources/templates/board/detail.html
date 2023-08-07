@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Detail</h1>
+	글번호: <span th:text="${detail.board_no}"></span><br>
+	글제목: <span th:text="${detail.title}"></span><br>
+	작성자: <span th:text="${detail.writer}"></span><br>
+	작성일: <span th:text="${detail.regdate}"></span><br>
+	조회수: <span th:text="${detail.hit}"></span><br>
+	내용:<br>
+	<span th:text="${detail.content}"></span>
+</body>
+</html>

@@ -24,4 +24,12 @@ public class BoardService {
 	public void save(Board board) {
 		boardDAO.save(board);
 	}
+	
+	public Board findById(int board_no) {
+		return boardDAO.findById(board_no).get();
+	}
+	
+	public void updateHit(int board_no) {
+		boardDAO.updateHit(board_no);
+	}
 }

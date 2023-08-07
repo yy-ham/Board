@@ -20,7 +20,9 @@
 		<tbody>
 			<tr th:each="board:${list}">
 				<td th:text="${board.board_no}"></td>
-				<td th:text="${board.title}"></td>
+				<td>
+					<a th:text="${board.title}" th:href="@{'/board/detail/'+${board.board_no}}"></a>
+				</td>
 				<td th:text="${board.writer}"></td>
 				<td th:text="${board.regdate}"></td>
 				<td th:text="${board.hit}"></td>

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,5 +38,13 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("redirect:/board/list");
 		boardService.save(board);
 		return mav;
+	}
+	
+	//게시글 상세
+	@GetMapping("/board/detail/{board_no}")
+	public String detail(Model model, @PathVariable int board_no) {
+		boardService.updateHit(board_no);
+		model.addAttribute("detail", boardService.findById(board_no));
+		return "/board/detail";
 	}
 }
