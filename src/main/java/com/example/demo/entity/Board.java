@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 @DynamicInsert
+@DynamicUpdate
 @Table(name = "board")
 @SequenceGenerator(
 		name = "board_no_seq"
@@ -35,6 +38,8 @@ public class Board {
 	private String title;
 	private String content;
 	private String writer;
+	
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date regdate;
 	private int hit;
 }

@@ -32,8 +32,8 @@ public class BoardController {
 		
 	}
 	
-	//게시글 작성 post
-	@PostMapping("/board/insert")
+	//게시글 작성 및 수정
+	@PostMapping("/board/save")
 	public ModelAndView save(Board board) {
 		ModelAndView mav = new ModelAndView("redirect:/board/list");
 		boardService.save(board);
@@ -46,5 +46,11 @@ public class BoardController {
 		boardService.updateHit(board_no);
 		model.addAttribute("detail", boardService.findById(board_no));
 		return "/board/detail";
+	}
+	
+	@GetMapping("/board/update/{board_no}")
+	public String update(Model model, @PathVariable int board_no) {
+		model.addAttribute("board", boardService.findById(board_no));
+		return "/board/update";
 	}
 }
