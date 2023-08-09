@@ -48,9 +48,18 @@ public class BoardController {
 		return "/board/detail";
 	}
 	
+	//게시글 수정
 	@GetMapping("/board/update/{board_no}")
 	public String update(Model model, @PathVariable int board_no) {
 		model.addAttribute("board", boardService.findById(board_no));
 		return "/board/update";
+	}
+	
+	//게시글 삭제
+	@GetMapping("/board/delete/{board_no}")
+	public ModelAndView delete(@PathVariable int board_no) {
+		ModelAndView mav = new ModelAndView("redirect:/board/list");
+		boardService.delete(board_no);
+		return mav;
 	}
 }

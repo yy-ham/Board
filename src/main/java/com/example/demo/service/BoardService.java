@@ -32,4 +32,8 @@ public class BoardService {
 	public void updateHit(int board_no) {
 		boardDAO.updateHit(board_no);
 	}
+	
+	public void delete(int board_no) {
+		boardDAO.deleteById(board_no);
+	}
 }
