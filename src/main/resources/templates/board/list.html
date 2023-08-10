@@ -29,5 +29,9 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+		<a th:href="@{'/board/list/'+${i}}" th:text="${i}"></a>&nbsp;
+	</th:block>
 </body>
 </html>

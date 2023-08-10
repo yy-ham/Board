@@ -36,4 +36,12 @@ public class BoardService {
 	public void delete(int board_no) {
 		boardDAO.deleteById(board_no);
 	}
+	
+	public int count() {
+		return (int)boardDAO.count();
+	}
+	
+	public List<Board> selectAll(int start, int end){
+		return boardDAO.selectAll(start, end);
+	}
 }
