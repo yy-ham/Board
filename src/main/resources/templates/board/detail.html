@@ -28,6 +28,22 @@
 	내용:<br>
 	<span th:text="${detail.content}"></span>
 	<hr>
+	
+	첨부파일: <span th:text="${detail.fname}"></span><br>
+	<div th:if="${detail.fname} != null">
+		<div th:if="${#strings.endsWith(detail.fname, '.jpg')} 
+		or ${#strings.endsWith(detail.fname, '.png')} 
+		or ${#strings.endsWith(detail.fname, '.gif')}">
+			<img alt="" th:src="@{'/images/'+${detail.fname}}" width="300" height="300">
+		</div>
+		<div th:unless="${#strings.endsWith(detail.fname, '.jpg')} 
+		or ${#strings.endsWith(detail.fname, '.png')} 
+		or ${#strings.endsWith(detail.fname, '.gif')}">
+			<a th:href="@{'/images/'+${detail.fname}}" th:text=${detail.fname}></a>
+		</div>
+	</div>
+	
+	<hr>
 	<a th:text="수정" th:href="@{'/board/update/'+${detail.board_no}}"></a>
 	<button id="deleteBtn">삭제</button>
 	<a th:text="삭제" th:href="@{'/board/delete/'+${detail.board_no}}"></a>

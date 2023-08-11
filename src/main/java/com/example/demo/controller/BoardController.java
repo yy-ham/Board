@@ -1,18 +1,23 @@
 package com.example.demo.controller;
 
 
+import java.io.FileOutputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dao.BoardDAO;
 import com.example.demo.entity.Board;
 import com.example.demo.service.BoardService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 
 @Controller
@@ -52,7 +57,31 @@ public class BoardController {
 	
 	//게시글 작성 및 수정
 	@PostMapping("/board/save")
-	public ModelAndView save(Board board) {
+	public ModelAndView save(Board board, HttpServletRequest request) {
+		
+		
+		//파일 업로드
+		String path = request.getServletContext().getRealPath("/images");
+		System.out.println("path:" + path);
+		String fname = null;
+		MultipartFile uploadFile = board.getUploadFile();
+		fname = uploadFile.getOriginalFilename();
+		
+		if(fname != null && !fname.equals("")) {
+			//파일이 있는 경우
+			try {
+				FileOutputStream stream = new FileOutputStream(path + "/" + fname);
+				FileCopyUtils.copy(uploadFile.getBytes(), stream);
+				stream.close();
+			} catch (Exception e) {
+				System.out.println("[Exception] " + e.getMessage());
+			}
+		}else {
+			//파일이 없는 경우
+			fname = "";
+		}
+		
+		board.setFname(fname);
 		ModelAndView mav = new ModelAndView("redirect:/board/list/1");
 		boardService.save(board);
 		return mav;

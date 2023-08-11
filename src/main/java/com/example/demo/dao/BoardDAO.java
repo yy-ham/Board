@@ -20,7 +20,7 @@ public interface BoardDAO extends JpaRepository<Board, Integer> {
 			nativeQuery = true)
 	public void updateHit(int board_no);
 	
-	@Query(value = "select board_no, title, content, writer, regdate, hit from "
+	@Query(value = "select board_no, title, content, writer, regdate, hit, fname from "
 			+ "(select A.*, rownum n from (select * from board order by board_no) A) "
 			+ "where n between ?1 and ?2",nativeQuery = true)
 	public List<Board> selectAll(int start, int end);

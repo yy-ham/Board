@@ -2,10 +2,10 @@ package com.example.demo.entity;
 
 import java.util.Date;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -42,4 +43,9 @@ public class Board {
 	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date regdate;
 	private int hit;
+	
+	//파일 업로드
+	@Transient
+	private MultipartFile uploadFile;
+	private String fname;
 }

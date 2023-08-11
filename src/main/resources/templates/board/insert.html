@@ -6,11 +6,13 @@
 </head>
 <body>
 	<h1>Insert</h1>
-	<form action="/board/save" method="post">
+	<form action="/board/save" method="post" enctype="multipart/form-data">
 		제목 <input type="text" name="title"><br>
 		작성자 <input type="text" name="writer"><br>
 		내용<br>
 		<textarea rows="20" cols="100" name="content"></textarea><br>
+		첨부파일
+		<input type="file" name="uploadFile">
 		<input type="submit" value="등록">
 		<input type="reset" value="취소">
 	</form>
