@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<style>
+		/* 초기화 */
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			margin: 0 auto;
+			width: 960px;
+		}
+		
+		.mb-3{
+			width: 100%;
+		}
+		
+		.btn{
+			margin: 10px;
+		}
+		
+	
+	</style>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<h1>Insert</h1>
-	<form action="/board/save" method="post" enctype="multipart/form-data">
-		<div class="mb-3">
-		  <label for="title" class="form-label">제목</label>
-		  <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
-		</div>
-		
-		<div class="mb-3">
-		  <label for="writer" class="form-label">작성자</label>
-		  <input type="text" class="form-control" id="writer" name="writer" placeholder="">
-		</div>
-		
-		<div class="mb-3">
-		  <label for="content" class="form-label">내용</label>
-		  <textarea class="form-control" id="content" name="content" rows="3"></textarea>
-		</div>
 	
-		제목 <input type="text" name="title"><br>
-		작성자 <input type="text" name="writer"><br>
-		내용<br>
-		<textarea rows="20" cols="100" name="content"></textarea><br>
-		첨부파일
-		<input type="file" name="uploadFile">
-		<input type="submit" value="등록">
-		<input type="reset" value="취소">
-	</form>
+		<form action="/board/save" method="post" enctype="multipart/form-data">
+			<div class="mb-3">
+			  <label for="title" class="form-label">제목</label>
+			  <input type="text" class="form-control" id="title" name="title">
+			</div>
+			
+			<div class="mb-3">
+			  <label for="writer" class="form-label">작성자</label>
+			  <input type="text" class="form-control" id="writer" name="writer">
+			</div>
+			
+			<div class="mb-3">
+			  <label for="content" class="form-label">내용</label>
+			  <textarea class="form-control" id="content" name="content" rows="10"></textarea>
+			</div>
+		
+			<div class="mb-3">
+			  <label for="uploadFile" class="form-label">첨부파일</label>
+			  <input class="form-control" type="file" id="uploadFile" name="uploadFile">
+			</div>
+		
+			<div class="d-flex flex-row mb-3 justify-content-center align-items-center">
+				<button type="submit" class="btn btn-primary">등록</button>
+				<button type="reset" class="btn btn-primary">취소</button>
+			</div>
+		</form>
 </body>
 </html>
