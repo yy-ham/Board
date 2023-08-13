@@ -33,8 +33,8 @@ public class BoardService {
 		boardDAO.updateHit(board_no);
 	}
 	
-	public void delete(int board_no) {
-		boardDAO.deleteById(board_no);
+	public int delete(int board_no) {
+		return boardDAO.delete(board_no);
 	}
 	
 	public int count() {

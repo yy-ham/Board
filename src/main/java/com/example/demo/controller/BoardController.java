@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,10 @@ public class BoardController {
 	//게시글 작성 및 수정
 	@PostMapping("/board/save")
 	public ModelAndView save(Board board, HttpServletRequest request) {
-		
+		ModelAndView mav = new ModelAndView("redirect:/board/list/1");
 		
 		//파일 업로드
-		String path = request.getServletContext().getRealPath("/images");
+		String path = request.getServletContext().getRealPath("/files");
 		System.out.println("path:" + path);
 		String fname = null;
 		MultipartFile uploadFile = board.getUploadFile();
@@ -70,9 +71,9 @@ public class BoardController {
 		if(fname != null && !fname.equals("")) {
 			//파일이 있는 경우
 			try {
-				FileOutputStream stream = new FileOutputStream(path + "/" + fname);
-				FileCopyUtils.copy(uploadFile.getBytes(), stream);
-				stream.close();
+				FileOutputStream fileOutputStream = new FileOutputStream(path + "/" + fname);
+				FileCopyUtils.copy(uploadFile.getBytes(), fileOutputStream);
+				fileOutputStream.close();
 			} catch (Exception e) {
 				System.out.println("[Exception] " + e.getMessage());
 			}
@@ -82,8 +83,8 @@ public class BoardController {
 		}
 		
 		board.setFname(fname);
-		ModelAndView mav = new ModelAndView("redirect:/board/list/1");
 		boardService.save(board);
+		
 		return mav;
 	}
 	
@@ -104,9 +105,23 @@ public class BoardController {
 	
 	//게시글 삭제
 	@GetMapping("/board/delete/{board_no}")
-	public ModelAndView delete(@PathVariable int board_no) {
+	public ModelAndView delete(@PathVariable int board_no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("redirect:/board/list/1");
-		boardService.delete(board_no);
+
+		//게시글 삭제 시 해당 게시글에 포함되어 있는 파일도 삭제
+		String path = request.getServletContext().getRealPath("/files");
+		String fname = boardService.findById(board_no).getFname();
+		int re = boardService.delete(board_no);
+		
+		if(re > 0) {
+			//게시글 삭제 성공 -> 파일도 삭제
+			try {
+				File file = new File(path + "/" + fname);
+				file.delete();
+			} catch (Exception e) {
+				System.out.println("[Exception] " + e.getMessage());
+			}
+		}
 		return mav;
 	}
 }
