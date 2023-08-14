@@ -44,4 +44,8 @@ public class BoardService {
 	public List<Board> selectAll(int start, int end){
 		return boardDAO.selectAll(start, end);
 	}
+	
+	public int update(Board board) {
+		return boardDAO.update(board);
+	}
 }

@@ -34,12 +34,12 @@
 		<div th:if="${#strings.endsWith(detail.fname, '.jpg')} 
 		or ${#strings.endsWith(detail.fname, '.png')} 
 		or ${#strings.endsWith(detail.fname, '.gif')}">
-			<img alt="" th:src="@{'/images/'+${detail.fname}}" width="300" height="300">
+			<img alt="" th:src="@{'/files/'+${detail.fname}}" width="300" height="300">
 		</div>
 		<div th:unless="${#strings.endsWith(detail.fname, '.jpg')} 
 		or ${#strings.endsWith(detail.fname, '.png')} 
 		or ${#strings.endsWith(detail.fname, '.gif')}">
-			<a th:href="@{'/images/'+${detail.fname}}" th:text=${detail.fname}></a>
+			<a th:href="@{'/files/'+${detail.fname}}" th:text=${detail.fname}></a>
 		</div>
 	</div>
 	

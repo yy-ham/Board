@@ -103,6 +103,50 @@ public class BoardController {
 		return "/board/update";
 	}
 	
+	@PostMapping("/board/update")
+	public ModelAndView updatePost(Board board, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("redirect:/board/list/1");
+		
+		String path = request.getServletContext().getRealPath("/files");
+		String oldFname = board.getFname(); //수정 전 업로드한 파일
+		System.out.println("oldFname: " + oldFname);
+		String fname = null;
+		MultipartFile uploadFile = board.getUploadFile(); //수정 시 새로 업로드한 파일
+		fname = uploadFile.getOriginalFilename();
+
+		if(fname != null && !fname.equals("")) {
+			//파일이 있는 경우
+			try {
+				//새로 업로드한 파일 생성
+				FileOutputStream fileOutputStream = new FileOutputStream(path + "/" + fname);
+				FileCopyUtils.copy(uploadFile.getBytes(), fileOutputStream);
+				fileOutputStream.close();
+				board.setFname(fname);
+			} catch (Exception e) {
+				System.out.println("[Exception] " + e.getMessage());
+			}
+		}
+		
+		System.out.println("fname:" + fname);
+		System.out.println("oldFname:" + oldFname);
+		
+		int re = boardService.update(board);
+		if(re > 0) {
+			if(fname != null && !fname.equals("")
+					&& oldFname != null && !oldFname.equals("")) {
+				try {
+					//수정 성공 -> 수정 전 업로드 파일 삭제
+					File file = new File(path + "/" + oldFname);
+					file.delete();
+				} catch (Exception e) {
+					System.out.println("[Exception] " + e.getMessage());
+				}
+			}
+		}
+		
+		return mav;
+	}
+	
 	//게시글 삭제
 	@GetMapping("/board/delete/{board_no}")
 	public ModelAndView delete(@PathVariable int board_no, HttpServletRequest request) {

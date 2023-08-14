@@ -29,4 +29,11 @@ public interface BoardDAO extends JpaRepository<Board, Integer> {
 	@Transactional
 	@Query(value = "delete from board where board_no = ?", nativeQuery = true)
 	public int delete(int board_no);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "update board "
+			+ "set title = :#{#b.title}, content = :#{#b.content}, fname = :#{#b.fname} "
+			+ "where board_no = :#{#b.board_no}", nativeQuery = true)
+	public int update(Board b);
 }
