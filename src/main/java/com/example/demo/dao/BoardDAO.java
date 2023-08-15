@@ -36,4 +36,7 @@ public interface BoardDAO extends JpaRepository<Board, Integer> {
 			+ "set title = :#{#b.title}, content = :#{#b.content}, fname = :#{#b.fname} "
 			+ "where board_no = :#{#b.board_no}", nativeQuery = true)
 	public int update(Board b);
+	
+	@Query(value = "select * from board where :column like %:keyword", nativeQuery = true)
+	public List<Board> search(String column, String keyword);
 }

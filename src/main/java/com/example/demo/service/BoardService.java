@@ -48,4 +48,8 @@ public class BoardService {
 	public int update(Board board) {
 		return boardDAO.update(board);
 	}
+	
+	public List<Board> search(String column, String keyword){
+		return boardDAO.search(column, keyword);
+	}
 }
