@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class BoardController {
 	
 	//게시글 조회
 	@GetMapping("/board/list/{pageNUM}")
-	public String list(Model model, @PathVariable int pageNUM) {
+	public String list(Model model, @PathVariable int pageNUM, String searchColumn, String keyword) {
 //		model.addAttribute("list", boardService.findAll());
 		
 		totalRecord = boardService.count();
@@ -45,8 +46,15 @@ public class BoardController {
 		int start = (pageNUM - 1) * pageSIZE + 1;
 		int end = start + pageSIZE - 1;
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("searchColumn", searchColumn);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
+		
 		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("list", boardService.selectAll(start, end));
+		model.addAttribute("list", boardService.findAll(map));
 		
 		return "/board/list";
 	}
@@ -170,11 +178,5 @@ public class BoardController {
 		return mav;
 	}
 	
-	@GetMapping("/board/search")
-	public String search(Model model, String column, String keyword) {
-		
-		model.addAttribute("list", boardService.search(column, keyword));
-		
-		return "/board/list";
-	}
+	
 }

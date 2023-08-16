@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.BoardDAO;
+import com.example.demo.db.BoardDBManager;
 import com.example.demo.entity.Board;
+import com.example.demo.vo.BoardVO;
 
 import lombok.Setter;
 
@@ -17,8 +20,8 @@ public class BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 	
-	public List<Board> findAll(){
-		return boardDAO.findAll();
+	public List<BoardVO> findAll(HashMap<String, Object> map){
+		return BoardDBManager.findAll(map);
 	}
 	
 	public void save(Board board) {
