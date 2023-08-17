@@ -52,7 +52,4 @@ public class BoardService {
 		return boardDAO.update(board);
 	}
 	
-	public List<Board> search(String column, String keyword){
-		return boardDAO.search(column, keyword);
-	}
 }
