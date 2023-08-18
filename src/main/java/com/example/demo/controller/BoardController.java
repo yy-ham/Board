@@ -45,6 +45,10 @@ public class BoardController {
 		totalRecord = boardService.getTotalRecord(map);
 		totalPage = (int)Math.ceil((double)totalRecord/pageSIZE);
 		
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
+		
 		int start = (pageNUM - 1) * pageSIZE + 1;
 		int end = start + pageSIZE - 1;
 		
