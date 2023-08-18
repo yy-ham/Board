@@ -38,18 +38,16 @@ public class BoardController {
 	//게시글 조회
 	@GetMapping("/board/list/{pageNUM}")
 	public String list(Model model, @PathVariable int pageNUM, String searchColumn, String keyword) {
-//		model.addAttribute("list", boardService.findAll());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchColumn", searchColumn);
+		map.put("keyword", keyword);
 		
-		totalRecord = boardService.count();
+		totalRecord = boardService.getTotalRecord(map);
 		totalPage = (int)Math.ceil((double)totalRecord/pageSIZE);
 		
 		int start = (pageNUM - 1) * pageSIZE + 1;
 		int end = start + pageSIZE - 1;
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("searchColumn", searchColumn);
-		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
 		

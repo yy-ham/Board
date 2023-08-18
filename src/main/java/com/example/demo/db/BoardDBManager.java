@@ -26,11 +26,18 @@ public class BoardDBManager {
 		}
 	}
 	
-	public static List<BoardVO> findAll(HashMap<String, Object> map){
-		List<BoardVO> list = null;
+	public static List<BoardVO> findAll(HashMap<String, Object> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		list = sqlSession.selectList("board.findAll", map);
+		List<BoardVO> list = sqlSession.selectList("board.findAll", map);
 		sqlSession.close();
+		
 		return list;
+	}
+	
+	public static int getTotalRecord(HashMap<String, Object> map) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int totalRecord = sqlSession.selectOne("board.getTotalRecord", map);
+		
+		return totalRecord;
 	}
 }

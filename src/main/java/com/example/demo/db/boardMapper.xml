@@ -12,4 +12,11 @@
 	order by regdate desc) A)
 	where n between #{start} and #{end}
   </select>
+  
+  <select id="getTotalRecord" resultType="java.lang.Integer">
+  	select count(*) from board
+  	<if test="keyword != null and keyword != ''">
+		where ${searchColumn} like '%' || #{keyword} || '%'
+	</if>
+  </select>
 </mapper>

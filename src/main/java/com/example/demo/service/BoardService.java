@@ -20,8 +20,12 @@ public class BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 	
-	public List<BoardVO> findAll(HashMap<String, Object> map){
+	public List<BoardVO> findAll(HashMap<String, Object> map) {
 		return BoardDBManager.findAll(map);
+	}
+	
+	public int getTotalRecord(HashMap<String, Object> map) {
+		return BoardDBManager.getTotalRecord(map);
 	}
 	
 	public void save(Board board) {
@@ -51,5 +55,6 @@ public class BoardService {
 	public int update(Board board) {
 		return boardDAO.update(board);
 	}
+	
 	
 }
