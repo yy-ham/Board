@@ -37,6 +37,7 @@ public class BoardDBManager {
 	public static int getTotalRecord(HashMap<String, Object> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		int totalRecord = sqlSession.selectOne("board.getTotalRecord", map);
+		sqlSession.close();
 		
 		return totalRecord;
 	}

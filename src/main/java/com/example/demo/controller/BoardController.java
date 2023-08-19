@@ -21,6 +21,7 @@ import com.example.demo.entity.Board;
 import com.example.demo.service.BoardService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 
 @Controller
@@ -37,7 +38,17 @@ public class BoardController {
 	
 	//게시글 조회
 	@GetMapping("/board/list/{pageNUM}")
-	public String list(Model model, @PathVariable int pageNUM, String searchColumn, String keyword) {
+	public String list(Model model, @PathVariable int pageNUM, String searchColumn, String keyword,
+			HttpSession session) {
+		
+		//새로운 검색어가 없고, 세션에 저장된 검색어가 있을 때
+		if(session.getAttribute("keyword") != null 
+				&& ( keyword == null || keyword.equals("") )) {
+			keyword = (String)session.getAttribute("keyword");
+			searchColumn = (String)session.getAttribute("searchColumn");			
+		}
+		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchColumn", searchColumn);
 		map.put("keyword", keyword);
@@ -57,6 +68,10 @@ public class BoardController {
 		
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("list", boardService.findAll(map));
+		
+		//세션
+		session.setAttribute("searchColumn", searchColumn);
+		session.setAttribute("keyword", keyword);
 		
 		return "/board/list";
 	}
