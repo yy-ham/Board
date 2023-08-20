@@ -39,8 +39,8 @@ public class Board {
 	private String content;
 	private String writer;
 	
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
-	private Date regdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private String regdate;
 	private int hit;
 	
 	//파일 업로드
