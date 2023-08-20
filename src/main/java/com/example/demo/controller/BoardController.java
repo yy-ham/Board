@@ -39,15 +39,21 @@ public class BoardController {
 	//게시글 조회
 	@GetMapping("/board/list/{pageNUM}")
 	public String list(Model model, @PathVariable int pageNUM, String searchColumn, String keyword,
-			HttpSession session) {
+			HttpSession session, @RequestParam(defaultValue = "N") String searchReset) {
 		
-		//새로운 검색어가 없고, 세션에 저장된 검색어가 있을 때
-		if(session.getAttribute("keyword") != null 
-				&& ( keyword == null || keyword.equals("") )) {
-			keyword = (String)session.getAttribute("keyword");
-			searchColumn = (String)session.getAttribute("searchColumn");			
+		//검색 초기화
+		if(searchReset != null && searchReset.equals("Y")
+				&& session.getAttribute("keyword") != null) {
+			session.removeAttribute("searchColumn");
+			session.removeAttribute("keyword");
 		}
 		
+		//새로운 검색어가 없고, 세션에 저장된 검색어가 있을 때 세션 값 가져옴
+		if(session.getAttribute("keyword") != null 
+				&& ( keyword == null || keyword.equals("") )) {
+			searchColumn = (String)session.getAttribute("searchColumn");			
+			keyword = (String)session.getAttribute("keyword");
+		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchColumn", searchColumn);
@@ -69,7 +75,7 @@ public class BoardController {
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("list", boardService.findAll(map));
 		
-		//세션
+		//세션에 저장
 		session.setAttribute("searchColumn", searchColumn);
 		session.setAttribute("keyword", keyword);
 		

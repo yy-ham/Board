@@ -9,18 +9,37 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			$("#searchBox").submit(function(e){
+				e.preventDefault();
+				var searchColumn = $("#searchColumn").val();
+				var keyword = $("#keyword").val();
+				
+				sessionStorage.setItem("searchColumn", searchColumn);
+				sessionStorage.setItem("keyword", keyword);
+				
+				console.log("submit");
+				$(this).unbind('submit').click();
+			});
 			
+			$("#list-headline").click(function(e){
+				e.preventDefault;
+				sessionStorage.removeItem("searchColumn");
+				sessionStorage.removeItem("keyword");
+				console.log("click");
+				$(this).unbind('click').click();
+				location.href = "/board/list/1?searchReset=Y"
+			});
 		});
 	</script>
 </head>
 <body>
-	<h1>List</h1>
+	<h1 id="list-headline" style="cursor: pointer;">List</h1>
 	<br>
 
 	<!-- 검색박스 -->
 	<div>
-		<form action="/board/list/1" method="get">
-		  	<select class="form-select" aria-label="Default select example" name="searchColumn" style="display: inline-block; width: 10%;">
+		<form action="/board/list/1" method="get" id="searchBox">
+		  	<select class="form-select" aria-label="Default select example" name="searchColumn" id="searchColumn" style="display: inline-block; width: 10%;">
 			  <option selected="selected" value="title">제목</option>
 			  <option value="content">내용</option>
 			  <option value="writer">작성자</option>
