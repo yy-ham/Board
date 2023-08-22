@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +21,7 @@ public interface User_infoDAO extends JpaRepository<User_info, String> {
 	
 	@Query(value = "select nvl(max(user_no), 0) + 1 from user_info", nativeQuery = true)
 	public int getNextNo();
+	
+	public Optional<User_info> findById(String id);
 
 }
