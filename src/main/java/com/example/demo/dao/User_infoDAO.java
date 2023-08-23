@@ -10,7 +10,7 @@ import com.example.demo.entity.User_info;
 
 import jakarta.transaction.Transactional;
 
-public interface User_infoDAO extends JpaRepository<User_info, String> {
+public interface User_infoDAO extends JpaRepository<User_info, Integer> {
 	
 	@Modifying
 	@Transactional

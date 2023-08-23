@@ -28,7 +28,7 @@ public class SecurityConfig {
  		 	)
  		 	.formLogin((formLogin) ->
 				formLogin
-					.usernameParameter("id") //아이디 파라미터명 설정
+					.usernameParameter("username") //아이디 파라미터명 설정
 					.passwordParameter("pwd") //비밀번호 파라미터명 설정
 					.loginPage("/login") //사용자 정의 로그인 페이지
 					.failureUrl("/loginfail") //로그인 실패 시 이동 페이지
