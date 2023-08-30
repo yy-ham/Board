@@ -29,9 +29,10 @@ public class UserSecurityService implements UserDetailsService {
 		if(_userinfo == null || _userinfo.isEmpty()) {
 			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
 		}
-		User_info user_info = _userinfo.get();
 
+		User_info user_info = _userinfo.get();
 		List<GrantedAuthority> authorities = new ArrayList<>();
+
 		if("admin".equals(username)) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
 		}else {
