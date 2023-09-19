@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -44,8 +45,8 @@
 	</div>
 	
 	<hr>
-	<a th:text="수정" th:href="@{'/board/update/'+${detail.board_no}}"></a>
-	<button id="deleteBtn">삭제</button>
+	<a th:if="${#authentication.name} == ${detail.writer}" th:text="수정" th:href="@{'/board/update/'+${detail.board_no}}"></a>
+	<button th:if="${#authentication.name} == ${detail.writer}" id="deleteBtn">삭제</button>
 	<a th:text="글목록" href="/board/list/1"></a>
 </body>
 </html>
