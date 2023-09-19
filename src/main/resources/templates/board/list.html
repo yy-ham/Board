@@ -37,6 +37,7 @@
 	<h1 id="list-headline" style="cursor: pointer;">List</h1>
 	<br>
 	<div style="margin-bottom: 5%;">
+		<span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
 		<a class="btn btn-primary" href="/signup" style="float: right;">회원가입</a>
 		<a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/login}" style="float: right;">로그인</a>
         <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/logout}" style="float: right;">로그아웃</a>
